@@ -1,5 +1,3 @@
-# EZCALENDAR
-
 ![EZCALENDAR Logo](assets/EZCALENDAR.png)
 
 ## Description
