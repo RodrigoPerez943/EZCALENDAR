@@ -1,18 +1,19 @@
- 
+# EZCALENDAR
+
 ███████╗███████╗ ██████╗  █████╗  ██╗     ███████╗███╗   ██╗ ██████╗   █████╗ ██████╗ 
 ██╔════╝╚══███╔╝ ██╔════╝██  ╔██╗ ██║     ██╔════╝████╗  ██║ ██╔══██╗ ██╔═██╗ ██╔══██╗
 █████╗     ███╔╝ ██║     ███████║ ██║     █████╗  ██╔██╗ ██║ ██║  ██  ██████║ ██████╔╝
 ██╔══╝   ███╔╝   ██║     ██╔══██║ ██║     ██╔══╝  ██║╚██╗██║ ██║  ██║ ██╔══██║██╔══██╗
 ███████╗███████╗╚██████╗ ██║   ██║███████╗███████╗██║ ╚████║ ██████╔╝ ██║  ██║██║   ██║
 ╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝  ╚═════╝  ╚═╝  ╚═╝╚═╝    ╚═╝
-                                                                             
 
-Descripción
-----------------------------------------------------
-EZCALENDAR es una herramienta de Python diseñada para ayudar a los usuarios a organizar eventos y visualizarlos en un calendario PDF. Los usuarios pueden ingresar las fechas de sus eventos, y el programa generará un archivo JSON con los detalles del evento y un archivo PDF que muestra un calendario mensual con los eventos marcados.
+## Description
 
-Instalación de Dependencias
------------------------------------------------------
-Para instalar las dependencias, puede usar pip:
+EZCALENDAR is a Python tool designed to help users organize events and visualize them in a PDF calendar. Users can enter their event dates, and the program will generate a JSON file with the event details and a PDF file displaying a monthly calendar with the events marked.
 
-"pip install -r requirements.txt"
+## Dependencies Installation
+
+To install the dependencies, you can use pip:
+
+```sh
+pip install -r requirements.txt
