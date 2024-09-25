@@ -13,7 +13,7 @@ def solicitar_fechas_eventos():
 
     global indice
     global indices
-    fechas_str = input("Ingrese las fechas de los eventos en formato DD-MM-YYYY, separadas por comas, el formato es el siguiente: 30-5-2024 COTE , 31-5-2024 SDG2 , 4-6-2024 CORE ... \n")
+    fechas_str = input("Enter the event dates in DD-MM-YYYY format, separated by commas. The format is as follows: 30-5-2024 COTE, 31-5-2024 SDG2, 4-6-2024 CORE ... \n")
     partes = fechas_str.split(" , ")
     colores = ["darkgoldenrod", "darkgreen", "deepskyblue", "fuchsia" , "crimson" , "darkslategray", "forestgreen" , "indigo" , "lightcoral" , "lightskyblue" , "darkgoldenrod", "darkgreen", "deepskyblue", "fuchsia" , "crimson" , "darkslategray", "forestgreen" , "indigo" , "lightcoral" , "lightskyblue"]
     fechas = []
