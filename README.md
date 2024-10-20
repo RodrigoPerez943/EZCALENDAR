@@ -31,4 +31,4 @@ You must input the dates in the format provided and then hit enter, as this:
 30-5-2024 COTE, 31-5-2024 SDG2, 4-6-2024 CORE
 ```
 
-And then hit entrer, Now you will find the calnedar created in the repository directory!
+After hitting enter you will find the calendar created in the repository directory!
