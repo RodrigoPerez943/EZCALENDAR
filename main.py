@@ -15,7 +15,7 @@ def solicitar_fechas_eventos():
     global indices
     fechas_str = input("Enter the event dates in DD-MM-YYYY format, separated by commas. The format is as follows: 30-5-2024 COTE, 31-5-2024 SDG2, 4-6-2024 CORE ... \n")
     partes = fechas_str.split(" , ")
-    colores = ["darkgoldenrod", "darkgreen", "deepskyblue", "fuchsia" , "crimson" , "darkslategray", "forestgreen" , "indigo" , "lightcoral" , "lightskyblue" , "darkgoldenrod", "darkgreen", "deepskyblue", "fuchsia" , "crimson" , "darkslategray", "forestgreen" , "indigo" , "lightcoral" , "lightskyblue"]
+    colores = ["darkgoldenrod", "darkgreen", "deepskyblue", "fuchsia" , "crimson" , "darkslategray", "forestgreen" , "indigo" , "lightcoral" , "lightskyblue", "darkgoldenrod", "darkgreen", "deepskyblue", "fuchsia" , "crimson" , "darkslategray", "forestgreen" , "indigo" , "lightcoral" , "lightskyblue"]
     fechas = []
     asignaturas = [] 
     eventos = []
@@ -30,20 +30,24 @@ def solicitar_fechas_eventos():
         indices.append(indice)
         fecha = datetime.datetime.strptime(fecha_str.strip(), "%d-%m-%Y")
         dias_restantes = (datetime.date(fecha.year,fecha.month,fecha.day) - datetime.date.today()).days
+        anio_actual = datetime.date.today().year
         mes_actual = datetime.date.today().month
         dia_actual = datetime.date.today().day
 
         evento_existente = None
 
         for a in range(dias_restantes):
-            if (dia_actual + 1 <= monthrange(datetime.date.today().year , mes_actual)[1] ):
+            if (dia_actual + 1 <= monthrange(anio_actual , mes_actual)[1] ):
                 dia_actual += 1
             else:
                 mes_actual += 1
                 dia_actual = 1
+                if mes_actual > 12:
+                    mes_actual = 1
+                    anio_actual += 1
 
             for evento in eventos:
-                if evento["dia_del_mes_actual"] == dia_actual and evento["mes"] == mes_actual:
+                if evento["dia_del_mes_actual"] == dia_actual and evento["mes"] == mes_actual and evento["anio"] == anio_actual:
                     evento_existente = evento
                     break
 
@@ -59,6 +63,7 @@ def solicitar_fechas_eventos():
                 "dia_del_mes_actual": dia_actual,
                 f"dia_del_mes_objetivo{indice}": fecha.day,
                 "mes": mes_actual,
+                "anio": anio_actual,
                 f"objetivo{indice}": asignaturas[i] + "," + colores[i] + "," + str(dias_restantes - a - 1),
                 f"dias_restantes{indice}": dias_restantes - a - 1,
                 f"color{indice}": colores[i],
@@ -88,11 +93,14 @@ def generar_calendario_pdf(eventos, nombre_archivo_pdf="calendario.pdf"):
     alto_util = alto_pagina - margen_superior - margen_inferior
     cell_width = ancho_util / 7
 
-    primer_dia_semana =  datetime.date(2024, eventos[0]["mes"], eventos[0]["dia_del_mes_actual"]).weekday()
+    # Ordenar los eventos por fecha
+    eventos.sort(key=lambda x: datetime.date(x["anio"], x["mes"], x["dia_del_mes_actual"]))
+
+    primer_dia_semana =  datetime.date(eventos[0]["anio"], eventos[0]["mes"], eventos[0]["dia_del_mes_actual"]).weekday()
 
     eventos_por_semana = []
     dias_vacios = [{'dia_del_mes_actual': '', 'color': ''}] * primer_dia_semana
-    dias_completar_semana = 6 - datetime.date(2024, eventos[-1]["mes"], eventos[-1]["dia_del_mes_actual"]).weekday()
+    dias_completar_semana = 6 - datetime.date(eventos[-1]["anio"], eventos[-1]["mes"], eventos[-1]["dia_del_mes_actual"]).weekday()
     dias_continuacion = [{'dia_del_mes_actual': '', 'color': ''}]*dias_completar_semana
     eventos_con_dias_vacios = dias_vacios + eventos + dias_continuacion
 
@@ -120,7 +128,7 @@ def generar_calendario_pdf(eventos, nombre_archivo_pdf="calendario.pdf"):
             c.setFillColor(colors.black)
             c.rect(x, y - cell_height, cell_width, cell_height, stroke=1, fill=0)
 
-            if evento['dia_del_mes_actual']:
+            if evento.get('dia_del_mes_actual'):
                 desfaseY = 0
                 auxAsignatura = ""
                 auxColor = ""
@@ -159,4 +167,3 @@ def generar_calendario_pdf(eventos, nombre_archivo_pdf="calendario.pdf"):
     c.save()
 
 generar_calendario_pdf(eventos)
-                
